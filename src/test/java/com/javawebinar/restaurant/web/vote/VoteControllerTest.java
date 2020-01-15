@@ -14,6 +14,7 @@ import java.time.LocalTime;
 
 import static com.javawebinar.restaurant.RestaurantTestData.RESTAURANT1;
 import static com.javawebinar.restaurant.UserTestData.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class VoteControllerTest extends AbstractControllerTest {
@@ -57,6 +58,7 @@ class VoteControllerTest extends AbstractControllerTest {
 
         perform(doPost("/vote/restaurants/" + RESTAURANT1.getId()).basicAuth(USER4))
                 .andExpect(status().isCreated())
+                .andDo(print())
                 .andExpect(RestaurantTestData.RESTAURANT_MATCHERS.contentJson(RESTAURANT1));
     }
 

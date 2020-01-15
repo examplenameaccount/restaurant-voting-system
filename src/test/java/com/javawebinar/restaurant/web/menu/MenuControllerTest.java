@@ -74,7 +74,7 @@ class MenuControllerTest extends AbstractControllerTest {
         Menu updateMenu = MenuTestData.getUpdated();
         perform(doPut("menus/" + MENU1_ID)
                 .jsonBody(updateMenu)
-                .basicAuth(USER1))
+                .auth(USER1))
                 .andExpect(status().isForbidden());
     }
 

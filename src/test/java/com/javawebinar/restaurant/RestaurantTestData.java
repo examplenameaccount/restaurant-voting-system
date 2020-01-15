@@ -25,6 +25,6 @@ public class RestaurantTestData {
 
     public static List<Restaurant> restaurantList = List.of(RESTAURANT1, RESTAURANT2, RESTAURANT3);
 
-    public static TestMatchers<Restaurant> RESTAURANT_MATCHERS = TestMatchers.useFieldsComparator(Restaurant.class, "votes", "menu");
+    public static TestMatchers<Restaurant> RESTAURANT_MATCHERS = TestMatchers.useFieldsComparator(Restaurant.class,  "menu");
 
 }

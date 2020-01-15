@@ -2,6 +2,7 @@ package com.javawebinar.restaurant.web.menu;
 
 import com.javawebinar.restaurant.model.Menu;
 import com.javawebinar.restaurant.service.MenuService;
+import com.javawebinar.restaurant.web.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,6 +41,7 @@ public class MenuController {
     public void updateMenu(@Valid @RequestBody Menu menuRequest,
                            @PathVariable(value = "menuId") int menuId
     ) {
+        System.out.println("auth " + SecurityUtil.get().getAuthorities());
         menuService.updateMenu(menuId, menuRequest);
     }
 

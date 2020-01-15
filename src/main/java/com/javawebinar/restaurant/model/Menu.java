@@ -7,8 +7,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_time", "restaurant_id"}, name = "menus_unique_date_time_id_name_idx")})
 public class Menu extends AbstractNamedEntity {
-    @NotNull
     @Column(name = "date_time", nullable = false)
+    @NotNull
     private LocalDate dateTime;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

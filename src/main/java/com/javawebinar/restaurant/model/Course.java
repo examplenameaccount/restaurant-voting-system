@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "courses", uniqueConstraints = {@UniqueConstraint(columnNames = {"menu_id", "name"}, name = "courses_unique_menu_id_name_idx")})
 public class Course extends AbstractNamedEntity {
-
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "menu_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

@@ -53,7 +53,7 @@ alter table users add constraint users_unique_email_idx unique (email);
 alter table votes add constraint votes_unique_user_id_local_date_idx unique (user_id, local_date);
 alter table courses add constraint courses_menu_id_fk foreign key (menu_id) references menus on delete cascade;
 alter table courses add constraint courses_unique_menu_id_name_idx unique (menu_id, name);
-alter table menus add constraint menu_restaurant_id_fk foreign key (restaurant_id) references restaurants;
+alter table menus add constraint menu_restaurant_id_fk foreign key (restaurant_id) references restaurants on delete cascade;
 alter table menus add constraint menus_unique_date_time_restaurant_id_idx unique (date_time, restaurant_id);
 alter table user_roles add constraint user_roles_user_id_fk foreign key (user_id) references users ON DELETE CASCADE;
 alter table user_roles add constraint user_roles_idx UNIQUE (user_id, role);

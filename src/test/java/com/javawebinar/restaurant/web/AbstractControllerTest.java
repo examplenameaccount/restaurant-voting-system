@@ -29,7 +29,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         "classpath:spring/spring-mvc.xml",
         "classpath:spring/spring-db.xml"
 })
+//@WebAppConfiguration
+//@ExtendWith(SpringExtension.class)
 @Transactional
+//@ActiveProfiles(resolver = AllActiveProfileResolver.class)
 abstract public class AbstractControllerTest {
 
     private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
@@ -146,6 +149,11 @@ abstract public class AbstractControllerTest {
 
         public RequestWrapper basicAuth(User user) {
             builder.with(SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword()));
+            return this;
+        }
+
+        public RequestWrapper auth(User user) {
+            builder.with(SecurityMockMvcRequestPostProcessors.authentication(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())));
             return this;
         }
     }

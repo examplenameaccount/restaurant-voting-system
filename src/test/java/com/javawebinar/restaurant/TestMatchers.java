@@ -34,6 +34,9 @@ public class TestMatchers<T> {
         }
     }
 
+    public void assertMatch(Iterable<T> actual, T... expected) {
+        assertMatch(actual, List.of(expected));
+    }
 
     public void assertMatch(Iterable<T> actual, Iterable<T> expected) {
         if (useEquals) {
@@ -44,6 +47,7 @@ public class TestMatchers<T> {
     }
 
     public ResultMatcher contentJson(T expected) {
+
         return result -> assertMatch(TestUtil.readFromJsonMvcResult(result, clazz), expected);
     }
 

@@ -31,6 +31,7 @@ public class VoteController {
         int userId = SecurityUtil.authUserId();
         VoteTo voteTo = isBeforeElevenAM() ? voteService.saveOrUpdate(userId, restaurantId) :
                 voteService.save(userId, restaurantId);
+        System.out.println("here1234 " + voteTo.getVote().getRestaurant());
         return new ResponseEntity<>(voteTo.getVote().getRestaurant(),
                 voteTo.isCreated() ? HttpStatus.CREATED : (isBeforeElevenAM() ? HttpStatus.OK : HttpStatus.CONFLICT));
     }
