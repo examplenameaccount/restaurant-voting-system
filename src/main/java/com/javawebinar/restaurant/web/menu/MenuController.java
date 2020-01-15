@@ -41,7 +41,6 @@ public class MenuController {
     public void updateMenu(@Valid @RequestBody Menu menuRequest,
                            @PathVariable(value = "menuId") int menuId
     ) {
-        System.out.println("auth " + SecurityUtil.get().getAuthorities());
         menuService.updateMenu(menuId, menuRequest);
     }
 

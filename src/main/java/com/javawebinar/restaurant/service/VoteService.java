@@ -41,7 +41,6 @@ public class VoteService {
                 .orElse(new VoteTo(new Vote(crudUserRepository.getOne(userId),
                         crudRestaurantRepository.getOne(restaurantId),
                         TODAY_DATE), true));
-        System.out.println("debug " + voteTo);
         crudVoteRepository.save(voteTo.getVote());
         return voteTo;
     }
@@ -54,7 +53,6 @@ public class VoteService {
         if (todayVote != null) {
             return new VoteTo(todayVote, false);
         }
-        System.out.println("loook " + todayVote);
         return new VoteTo(crudVoteRepository.save(new Vote(crudUserRepository.getOne(userId),
                 crudRestaurantRepository.getOne(restaurantId),
                 TODAY_DATE)), true);

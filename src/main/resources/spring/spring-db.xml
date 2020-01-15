@@ -18,8 +18,6 @@
         <jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>
     </jdbc:initialize-database>
 
-    <!-- Choose profile from (hsqldb/ postgres) and (jdbc/ datajpa/ jpa) -->
-
     <tx:annotation-driven/>
 
     <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
@@ -32,72 +30,6 @@
           p:username="${database.username}"
           p:password="${database.password}"/>
 
-    <!--    <beans profile="postgres">-->
-    <!--        &lt;!&ndash;-->
-    <!--            For postgres driver logging-->
-    <!--            It uses java.util.logging and logged via jul-to-slf4j bridge-->
-    <!--            https://stackoverflow.com/a/27296470/548473-->
-    <!--        &ndash;&gt;-->
-    <!--        <bean class="org.springframework.beans.factory.config.MethodInvokingBean">-->
-    <!--            <property name="staticMethod" value="org.slf4j.bridge.SLF4JBridgeHandler.install" />-->
-    <!--        </bean>-->
-
-    <!--        <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>-->
-
-    <!--        <bean id="dataSource"-->
-    <!--              class="org.apache.tomcat.jdbc.pool.DataSource"-->
-    <!--              p:driverClassName="org.postgresql.Driver"-->
-    <!--              p:url="${database.url}"-->
-    <!--              p:username="${database.username}"-->
-    <!--              p:password="${database.password}"/>-->
-    <!--    </beans>-->
-
-    <!--    <beans profile="tomcat">-->
-    <!--        <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/topjava"/>-->
-    <!--        <context:property-placeholder location="classpath:db/tomcat.properties" system-properties-mode="OVERRIDE"/>-->
-    <!--    </beans>-->
-
-    <!--    <beans profile="jdbc">-->
-    <!--        <context:component-scan base-package="com.javawebinar.**.repository.jdbc"/>-->
-    <!--        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
-    <!--            <constructor-arg ref="dataSource"/>-->
-    <!--        </bean>-->
-
-    <!--        <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
-    <!--            <constructor-arg ref="jdbcTemplate"/>-->
-    <!--        </bean>-->
-
-    <!--        <bean id="transactionManager"-->
-    <!--              class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-    <!--            <property name="dataSource" ref="dataSource" />-->
-    <!--        </bean>-->
-    <!--    </beans>-->
-
-    <!--    <beans profile="heroku">-->
-    <!--        <context:property-placeholder location="classpath:/db/heroku.properties" system-properties-mode="OVERRIDE"/>-->
-
-    <!--        <bean class="java.net.URI" id="dbUrl">-->
-    <!--            <constructor-arg value="${DATABASE_URL}"/>-->
-    <!--        </bean>-->
-    <!--        <bean id="dataSource"-->
-    <!--              class="org.apache.tomcat.jdbc.pool.DataSource"-->
-    <!--              p:url="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + @dbUrl.getPath() }"-->
-    <!--              p:username="#{ @dbUrl.getUserInfo().split(':')[0] }"-->
-    <!--              p:password="#{ @dbUrl.getUserInfo().split(':')[1] }"-->
-    <!--              p:driverClassName="org.postgresql.Driver"-->
-    <!--              p:validationQuery="SELECT 1"-->
-    <!--              p:maxActive="10"-->
-    <!--              p:minIdle="2"-->
-    <!--              p:maxWait="20000"-->
-    <!--              p:initialSize="2"-->
-    <!--              p:maxIdle="5"-->
-    <!--              p:testOnBorrow="true"-->
-    <!--              p:removeAbandoned="true"-->
-    <!--              p:testOnConnect="true"-->
-    <!--              p:testWhileIdle="true"/>-->
-    <!--    </beans>-->
-
-    <!--    <beans profile="jpa,datajpa">-->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
           p:packagesToScan="com.javawebinar.**.model">
@@ -118,17 +50,6 @@
                        value="org.ehcache.jsr107.EhcacheCachingProvider"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> <!--default-->
-
-<!--                <entry key="javax.persistence.validation.group.pre-persist"-->
-<!--                       value="com.javawebinar.restaurant.View$Persist"/>-->
-<!--                <entry key="javax.persistence.validation.group.pre-update"-->
-<!--                       value="com.javawebinar.topjava.View$Persist"/>-->
-                <!--
-                                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_SCRIPTS_ACTION}" value="drop-and-create"/>
-                                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_SCRIPTS_CREATE_TARGET}" value="${TOPJAVA_ROOT}/config/ddl/create.ddl"/>
-                                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_SCRIPTS_DROP_TARGET}" value="${TOPJAVA_ROOT}/config/ddl/drop.ddl"/>
-                                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="create"/>
-                -->
             </map>
         </property>
 
@@ -141,14 +62,8 @@
     <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
           p:entityManagerFactory-ref="entityManagerFactory"/>
-    <!--    </beans>-->
 
-    <!--    <beans profile="jpa">-->
-    <!--        <context:component-scan base-package="com.javawebinar.**.repository.jpa"/>-->
-    <!--    </beans>-->
-
-    <!--    <beans profile="datajpa">-->
     <context:component-scan base-package="com.javawebinar.**.repository.datajpa"/>
     <jpa:repositories base-package="com.javawebinar.**.repository.datajpa"/>
-    <!--    </beans>-->
+
 </beans>
