@@ -20,9 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class VoteControllerTest extends AbstractControllerTest {
     private static final String REST_URL = VoteController.REST_URL;
 
-    @Autowired
-    private VoteService voteService;
-
     public VoteControllerTest() {
         super(REST_URL);
     }
@@ -48,6 +45,7 @@ class VoteControllerTest extends AbstractControllerTest {
 
         perform(doPost("/vote/restaurants/" + RESTAURANT1.getId()).basicAuth(USER1))
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andExpect(RestaurantTestData.RESTAURANT_MATCHERS.contentJson(RESTAURANT1));
 
     }

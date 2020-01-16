@@ -46,7 +46,7 @@ class CourseControllerTest extends AbstractControllerTest {
     @Test
     void createForbidden() throws Exception {
         Course newCourse = CourseTestData.getNew();
-        perform(doPost("menus/" + MENU1_ID + "/course").jsonBody(newCourse).basicAuth(USER1))
+        perform(doPost("menus/" + MENU1_ID + "/course").jsonBody(newCourse).basicAuth(USER3))
                 .andExpect(status().isForbidden());
     }
 
@@ -83,7 +83,7 @@ class CourseControllerTest extends AbstractControllerTest {
 
     @Test
     void deleteForbidden() throws Exception {
-        perform(doDelete("/courses/" + COURSE1_ID).basicAuth(USER1))
+        perform(doDelete("/courses/" + COURSE1_ID).basicAuth(USER3))
                 .andExpect(status().isForbidden());
     }
 
@@ -103,7 +103,7 @@ class CourseControllerTest extends AbstractControllerTest {
         Course updateCourse = CourseTestData.getUpdated();
 
         perform(doPut("courses/" + COURSE1_ID)
-                .jsonBody(updateCourse).basicAuth(USER1))
+                .jsonBody(updateCourse).basicAuth(USER3))
                 .andExpect(status().isForbidden());
     }
 

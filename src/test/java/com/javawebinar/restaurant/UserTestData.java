@@ -20,6 +20,7 @@ public class UserTestData {
     public static final User USER2 = new User(USER2_ID, "Vladimir", "vladimr@yandex.ru", "qwerty", Role.ROLE_USER);
     public static final User USER3 = new User(USER3_ID, "Vasiliy", "vasiliy@yandex.ru", "ytrewq", Role.ROLE_USER);
     public static final User USER4 = new User(USER4_ID, "Dmitriy", "dmitriy@yandex.ru", "ytrewq1234", Role.ROLE_USER);
+
     public static final User ADMIN = new User(ADMIN_ID, "Admin", "admin@gmail.com", "admin", Role.ROLE_ADMIN, Role.ROLE_USER);
 
     public static List<User> userList = List.of(ADMIN, USER1, USER4, USER3, USER2);

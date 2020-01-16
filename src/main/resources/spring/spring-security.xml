@@ -10,8 +10,20 @@
     <http pattern="/rest/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
         <http-basic/>
         <intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/menus/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/rest/profile/register" access="isAnonymous()"/>
+
+        <intercept-url pattern="/rest/menus/**" method="PUT" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/rest/menus/**" method="DELETE" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/rest/menus/**" method="POST" access="hasRole('ROLE_ADMIN')"/>
+
+        <intercept-url pattern="/rest/courses/**" method="PUT" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/rest/courses/**" method="DELETE" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/rest/courses/**" method="POST" access="hasRole('ROLE_ADMIN')"/>
+
+        <intercept-url pattern="/rest/restaurants/**" method="PUT" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/rest/restaurants/**" method="DELETE" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/rest/restaurants/**" method="POST" access="hasRole('ROLE_ADMIN')"/>
+
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <csrf disabled="true"/>
     </http>

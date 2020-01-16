@@ -6,6 +6,7 @@ import com.javawebinar.restaurant.repository.datajpa.CrudRestaurantRepository;
 import com.javawebinar.restaurant.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class MenuService {
     @Autowired
     private CrudRestaurantRepository restaurantRepository;
 
+    @Transactional
     public Menu createMenu(int restaurantId, @RequestBody Menu menuRequest) {
         Menu createdMenu = restaurantRepository.findById(restaurantId)
                 .map(restaurant -> {
@@ -27,6 +29,7 @@ public class MenuService {
         return menuRepository.save(createdMenu);
     }
 
+    @Transactional
     public void updateMenu(int menuId, @RequestBody Menu menuRequest) {
         Menu updateMenu = menuRepository.findById(menuId)
                 .map(menu -> new Menu(menu.getId(), menuRequest.getName(), menuRequest.getMenuDate(), menuRequest.getRestaurant()))
@@ -39,6 +42,7 @@ public class MenuService {
                 .orElseThrow(() -> new NotFoundException("Restaurant with id " + restaurantId + " not found"));
     }
 
+    @Transactional
     public void deleteMenu(int menuId) {
         menuRepository.delete(menuRepository.findById(menuId)
                 .orElseThrow(() -> new NotFoundException("Menu with id " + menuId + " not found")));

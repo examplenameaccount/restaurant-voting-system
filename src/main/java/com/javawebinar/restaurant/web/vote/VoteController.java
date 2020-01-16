@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -31,7 +28,6 @@ public class VoteController {
         int userId = SecurityUtil.authUserId();
         VoteTo voteTo = isBeforeElevenAM() ? voteService.saveOrUpdate(userId, restaurantId) :
                 voteService.save(userId, restaurantId);
-        System.out.println("here1234 " + voteTo.getVote().getRestaurant());
         return new ResponseEntity<>(voteTo.getVote().getRestaurant(),
                 voteTo.isCreated() ? HttpStatus.CREATED : (isBeforeElevenAM() ? HttpStatus.OK : HttpStatus.CONFLICT));
     }

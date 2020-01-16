@@ -6,6 +6,7 @@ import com.javawebinar.restaurant.repository.datajpa.CrudMenuRepository;
 import com.javawebinar.restaurant.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class CourseService {
     @Autowired
     private CrudMenuRepository menuRepository;
 
+    @Transactional
     public Course create(int menuId, Course courseRequest) {
         courseRequest.setMenu(menuRepository.findById(menuId)
                 .orElseThrow(() -> new NotFoundException("Menu with id " + menuId + " not found")));
@@ -37,11 +39,13 @@ public class CourseService {
                 .orElseThrow(() -> new NotFoundException("Course with id " + courseId + "not found"));
     }
 
+    @Transactional
     public void delete(int courseId) {
         courseRepository.delete(courseRepository.findById(courseId)
                 .orElseThrow(() -> new NotFoundException("Course with id " + courseId + "not found")));
     }
 
+    @Transactional
     public void update(int courseId, Course courseRequest) {
         Course updateCourse = courseRepository.findById(courseId)
                 .map(course -> new Course(course.getId(), courseRequest.getName(), courseRequest.getPrice(), courseRequest.getMenu()))

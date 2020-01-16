@@ -5,6 +5,7 @@ import com.javawebinar.restaurant.repository.datajpa.CrudRestaurantRepository;
 import com.javawebinar.restaurant.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,11 +24,12 @@ public class RestaurantService {
                 .orElseThrow(() -> new NotFoundException("Restaurant with id " + id + " not found"));
     }
 
-
+    @Transactional
     public Restaurant create(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
 
+    @Transactional
     public void update(Restaurant restaurantRequest, int id) {
         Restaurant updateRestaurant = restaurantRepository.findById(id)
                 .map(restaurant -> new Restaurant(restaurantRequest.getId(), restaurantRequest.getName()))
@@ -35,6 +37,7 @@ public class RestaurantService {
         restaurantRepository.save(updateRestaurant);
     }
 
+    @Transactional
     public void delete(int id) {
         restaurantRepository.delete(restaurantRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Restaurant with id " + id + " not found")));

@@ -16,8 +16,7 @@ import java.time.LocalDate;
 
 import static com.javawebinar.restaurant.MenuTestData.*;
 import static com.javawebinar.restaurant.RestaurantTestData.*;
-import static com.javawebinar.restaurant.UserTestData.ADMIN;
-import static com.javawebinar.restaurant.UserTestData.USER1;
+import static com.javawebinar.restaurant.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -49,7 +48,7 @@ class MenuControllerTest extends AbstractControllerTest {
         Menu newMenu = MenuTestData.getNew();
         perform(doPost("/restaurants/" + RESTAURANT1.getId() + "/menu")
                 .jsonBody(newMenu)
-                .basicAuth(USER1))
+                .basicAuth(USER3))
                 .andExpect(status().isForbidden());
     }
 
@@ -74,7 +73,7 @@ class MenuControllerTest extends AbstractControllerTest {
         Menu updateMenu = MenuTestData.getUpdated();
         perform(doPut("menus/" + MENU1_ID)
                 .jsonBody(updateMenu)
-                .auth(USER1))
+                .auth(USER3))
                 .andExpect(status().isForbidden());
     }
 
@@ -100,7 +99,7 @@ class MenuControllerTest extends AbstractControllerTest {
 
     @Test
     void deleteMenuForbidden() throws Exception {
-        perform(doDelete("/menus/" + MENU1_ID).basicAuth(USER1))
+        perform(doDelete("/menus/" + MENU1_ID).basicAuth(USER3))
                 .andExpect(status().isForbidden());
     }
 

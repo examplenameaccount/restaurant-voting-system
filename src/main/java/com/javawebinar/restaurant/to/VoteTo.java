@@ -3,11 +3,8 @@ package com.javawebinar.restaurant.to;
 import com.javawebinar.restaurant.model.Vote;
 
 public class VoteTo {
-    private Vote vote;
-    private boolean created;
-
-    public VoteTo() {
-    }
+    private final Vote vote;
+    private final boolean created;
 
     public VoteTo(Vote vote, boolean created) {
         this.vote = vote;
@@ -18,15 +15,8 @@ public class VoteTo {
         return vote;
     }
 
-    public void setVote(Vote vote) {
-        this.vote = vote;
-    }
-
     public boolean isCreated() {
         return created;
     }
 
-    public void setCreated(boolean created) {
-        this.created = created;
-    }
 }

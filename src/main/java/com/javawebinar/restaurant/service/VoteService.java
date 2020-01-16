@@ -9,6 +9,7 @@ import com.javawebinar.restaurant.util.exception.NotFoundException;
 import com.javawebinar.restaurant.web.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -28,23 +29,25 @@ public class VoteService {
     private boolean notExistByRestaurantId(int restaurantId) {
         return !crudRestaurantRepository.existsById(restaurantId);
     }
-
+    @Transactional
     public VoteTo saveOrUpdate(int userId, int restaurantId) {
         if (notExistByRestaurantId(restaurantId)) {
             throw new NotFoundException("Restaurant with id " + restaurantId + " not found");
         }
+
         VoteTo voteTo = crudVoteRepository.findByUserIdAndLocalDate(SecurityUtil.authUserId(), TODAY_DATE)
                 .map(v -> {
-                    v.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
+                    v.setRestaurant(crudRestaurantRepository.findById(restaurantId).get());
                     return new VoteTo(v, false);
                 })
-                .orElse(new VoteTo(new Vote(crudUserRepository.getOne(userId),
+                .orElseGet(() -> new VoteTo(new Vote(crudUserRepository.getOne(userId),
                         crudRestaurantRepository.getOne(restaurantId),
                         TODAY_DATE), true));
         crudVoteRepository.save(voteTo.getVote());
         return voteTo;
     }
 
+    @Transactional
     public VoteTo save(int userId, int restaurantId) {
         if (notExistByRestaurantId(restaurantId)) {
             throw new NotFoundException("Restaurant with id " + restaurantId + "not found");
@@ -54,7 +57,7 @@ public class VoteService {
             return new VoteTo(todayVote, false);
         }
         return new VoteTo(crudVoteRepository.save(new Vote(crudUserRepository.getOne(userId),
-                crudRestaurantRepository.getOne(restaurantId),
+                crudRestaurantRepository.findById(restaurantId).get(),
                 TODAY_DATE)), true);
 
     }
