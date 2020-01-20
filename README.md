@@ -22,6 +22,9 @@ The application functionality is based on REST principles and realizes REST API 
 
 ### Restorant handling
 
+#### Get all restaurants with menus and courses:
+    curl -s  http://localhost:8079/rest/todayRestaurants --user dmitriy@yandex.ru:ytrewq1234
+
 #### Get all restaurants:
     curl -s  http://localhost:8079/rest/restaurants --user admin@gmail.com:admin
 
@@ -75,6 +78,12 @@ The application functionality is based on REST principles and realizes REST API 
 
 #### Vote for restaurant with id
     curl -s -X POST http://localhost:8079/rest/restaurants/100005 --user dmitriy@yandex.ru:ytrewq1234
+
+#### get voting history for user
+    curl -s http://localhost:8080/rest/votes --user admin@gmail.com:admin
+ 
+#### get count Votes for restaurants for today
+    curl -s http://localhost:8080/rest/todayVotes --user admin@gmail.com:admin
 
 User handling:
 
