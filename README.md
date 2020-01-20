@@ -85,7 +85,7 @@ The application functionality is based on REST principles and realizes REST API 
 #### get count Votes for restaurants for today
     curl -s http://localhost:8080/rest/todayVotes --user admin@gmail.com:admin
 
-User handling:
+### User handling:
 
 #### Get all Users
     curl -s http://localhost:8080/rest/admin/users --user admin@gmail.com:admin
