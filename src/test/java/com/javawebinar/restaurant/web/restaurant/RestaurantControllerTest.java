@@ -33,7 +33,6 @@ class RestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(RESTAURANT_MATCHERS.contentJson(RestaurantTestData.restaurantList));
     }
-
     @Test
     void get() throws Exception {
         perform(doGet(RESTAURANT1.getId()).basicAuth(ADMIN))

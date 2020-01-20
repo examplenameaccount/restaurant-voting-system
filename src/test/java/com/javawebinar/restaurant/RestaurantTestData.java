@@ -1,6 +1,7 @@
 package com.javawebinar.restaurant;
 
 import com.javawebinar.restaurant.model.Restaurant;
+import com.javawebinar.restaurant.to.RestaurantTo;
 
 import java.util.List;
 
@@ -25,6 +26,5 @@ public class RestaurantTestData {
 
     public static List<Restaurant> restaurantList = List.of(RESTAURANT1, RESTAURANT2, RESTAURANT3);
 
-    public static TestMatchers<Restaurant> RESTAURANT_MATCHERS = TestMatchers.useFieldsComparator(Restaurant.class,  "menu");
-
+    public static TestMatchers<Restaurant> RESTAURANT_MATCHERS = TestMatchers.useFieldsComparator(Restaurant.class, "menu");
 }

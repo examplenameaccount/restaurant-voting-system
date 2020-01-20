@@ -18,5 +18,4 @@ public class VoteTo {
     public boolean isCreated() {
         return created;
     }
-
 }

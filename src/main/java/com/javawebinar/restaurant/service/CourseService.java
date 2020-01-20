@@ -1,8 +1,8 @@
 package com.javawebinar.restaurant.service;
 
 import com.javawebinar.restaurant.model.Course;
-import com.javawebinar.restaurant.repository.datajpa.CrudCourseRepository;
-import com.javawebinar.restaurant.repository.datajpa.CrudMenuRepository;
+import com.javawebinar.restaurant.repository.CrudCourseRepository;
+import com.javawebinar.restaurant.repository.CrudMenuRepository;
 import com.javawebinar.restaurant.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +26,7 @@ public class CourseService {
     }
 
     public List<Course> getCoursesForMenu(int menuId) {
-        return courseRepository.findAllByMenuId(menuId)
-                .orElseThrow(() -> new NotFoundException("Menu with id " + menuId + "not found"));
+        return courseRepository.findAllByMenuId(menuId);
     }
 
     public List<Course> getAllCourses() {

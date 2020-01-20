@@ -1,5 +1,6 @@
 package com.javawebinar.restaurant.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -8,14 +9,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "courses", uniqueConstraints = {@UniqueConstraint(columnNames = {"menu_id", "name"}, name = "courses_unique_menu_id_name_idx")})
 public class Course extends AbstractNamedEntity {
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
     private Menu menu;
 
     @Column(name = "price", nullable = false)
     private int price;
-
 
     public Course() {
     }
@@ -49,5 +50,14 @@ public class Course extends AbstractNamedEntity {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "price=" + price +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                "} " + super.toString();
     }
 }

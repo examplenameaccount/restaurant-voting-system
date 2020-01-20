@@ -51,9 +51,6 @@ public class User extends AbstractNamedEntity implements HasEmail {
     @BatchSize(size = 200)
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Vote> votes;
-
     public User() {
     }
 
@@ -72,14 +69,6 @@ public class User extends AbstractNamedEntity implements HasEmail {
         this.enabled = enabled;
         this.registered = registered;
         setRoles(roles);
-    }
-
-    public Set<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Set<Vote> votes) {
-        this.votes = votes;
     }
 
     @Override

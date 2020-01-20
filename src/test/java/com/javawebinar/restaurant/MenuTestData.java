@@ -28,6 +28,7 @@ public class MenuTestData extends AbstractTestData {
         return updated;
     }
 
-    public static final TestMatchers<Menu> MENU_MATCHERS = TestMatchers.useFieldsComparator(Menu.class, "restaurant");
+    public static final TestMatchers<Menu> MENU_MATCHERS = TestMatchers.useFieldsComparator(Menu.class, "restaurant", "courses");
+
     public static List<Menu> menuListForRestaurant = List.of(MENU1);
 }

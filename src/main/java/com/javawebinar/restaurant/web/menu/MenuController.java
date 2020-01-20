@@ -1,7 +1,9 @@
 package com.javawebinar.restaurant.web.menu;
 
 import com.javawebinar.restaurant.model.Menu;
+import com.javawebinar.restaurant.model.Restaurant;
 import com.javawebinar.restaurant.service.MenuService;
+import com.javawebinar.restaurant.to.RestaurantTo;
 import com.javawebinar.restaurant.web.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +14,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = MenuController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,4 +65,11 @@ public class MenuController {
         return menuService.getMenu(menuId);
     }
 
+    @GetMapping("/todayRestaurants")
+    public List<RestaurantTo> getAllRestaurantsWithMenuAndCoursesOnToday() {
+        List<Menu> menusWithRestaurantAndCourses = menuService.getAllWithRestaurantAndCourse(LocalDate.now());
+        return menusWithRestaurantAndCourses.stream()
+                .map(RestaurantTo::new)
+                .collect(Collectors.toList());
+    }
 }

@@ -1,12 +1,10 @@
 package com.javawebinar.restaurant.web.vote;
 
 import com.javawebinar.restaurant.RestaurantTestData;
-import com.javawebinar.restaurant.service.VoteService;
+import com.javawebinar.restaurant.VoteTestData;
 import com.javawebinar.restaurant.util.TimeUtil;
 import com.javawebinar.restaurant.web.AbstractControllerTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +13,7 @@ import java.time.LocalTime;
 import static com.javawebinar.restaurant.RestaurantTestData.RESTAURANT1;
 import static com.javawebinar.restaurant.UserTestData.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class VoteControllerTest extends AbstractControllerTest {
@@ -28,6 +27,22 @@ class VoteControllerTest extends AbstractControllerTest {
     public void testUnAuth() throws Exception {
         perform(doPost("/vote/restaurants/" + RESTAURANT1.getId()))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void getVoteHistory() throws Exception {
+        perform(doGet("/votes").basicAuth(USER2))
+                .andExpect(status().isOk())
+                .andExpect(VoteTestData.VOTE_MATCHERS.contentJson(VoteTestData.voteListForUser2))
+                .andDo(print());
+    }
+
+    @Test
+    public void getVotesCount() throws Exception {
+        perform(doGet("/todayVotes").basicAuth(USER2))
+                .andExpect(status().isOk())
+                .andExpect(content().string("[{\"restaurant\":{\"id\":100005,\"name\":\"Domino`s pizza\"},\"count\":1},{\"restaurant\":{\"id\":100006,\"name\":\"McDonald`s\"},\"count\":1},{\"restaurant\":{\"id\":100007,\"name\":\"KFC\"},\"count\":2}]"))
+                .andDo(print());
     }
 
     @Test

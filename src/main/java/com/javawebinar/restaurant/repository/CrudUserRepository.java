@@ -1,4 +1,4 @@
-package com.javawebinar.restaurant.repository.datajpa;
+package com.javawebinar.restaurant.repository;
 
 import com.javawebinar.restaurant.model.User;
 import org.springframework.data.domain.Sort;

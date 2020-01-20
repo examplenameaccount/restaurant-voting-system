@@ -4,7 +4,7 @@ import com.javawebinar.restaurant.TestUtil;
 import com.javawebinar.restaurant.UserTestData;
 import com.javawebinar.restaurant.model.Role;
 import com.javawebinar.restaurant.model.User;
-import com.javawebinar.restaurant.repository.datajpa.CrudUserRepository;
+import com.javawebinar.restaurant.repository.CrudUserRepository;
 import com.javawebinar.restaurant.service.UserService;
 import com.javawebinar.restaurant.util.exception.NotFoundException;
 import com.javawebinar.restaurant.web.AbstractControllerTest;

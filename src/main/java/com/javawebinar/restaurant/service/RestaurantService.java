@@ -1,7 +1,7 @@
 package com.javawebinar.restaurant.service;
 
 import com.javawebinar.restaurant.model.Restaurant;
-import com.javawebinar.restaurant.repository.datajpa.CrudRestaurantRepository;
+import com.javawebinar.restaurant.repository.CrudRestaurantRepository;
 import com.javawebinar.restaurant.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,10 @@ public class RestaurantService {
                 .orElseThrow(() -> new NotFoundException("Restaurant with id " + id + " not found"));
     }
 
+//    public List<Restaurant> getAllWithMenusAndCourses(String name) {
+//        return restaurantRepository.findAllByName(name);
+//    }
+
     @Transactional
     public Restaurant create(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
@@ -32,7 +36,10 @@ public class RestaurantService {
     @Transactional
     public void update(Restaurant restaurantRequest, int id) {
         Restaurant updateRestaurant = restaurantRepository.findById(id)
-                .map(restaurant -> new Restaurant(restaurantRequest.getId(), restaurantRequest.getName()))
+                .map(restaurant -> {
+                    restaurant.setName(restaurantRequest.getName());
+                    return restaurant;
+                })
                 .orElseThrow(() -> new NotFoundException("Restaurant with id " + id + " not found"));
         restaurantRepository.save(updateRestaurant);
     }

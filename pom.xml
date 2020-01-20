@@ -2,14 +2,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.javawebinar</groupId>
-    <artifactId>topjava</artifactId>
+    <groupId>com.javawebinar</groupId>
+    <artifactId>restaurant</artifactId>
     <packaging>war</packaging>
 
     <version>1.0-SNAPSHOT</version>
 
-    <name>Calories Management</name>
-    <url>http://topjava.herokuapp.com/</url>
+    <name>Restaurant voting system</name>
 
     <properties>
         <java.version>11</java.version>
@@ -38,13 +37,6 @@
 
         <!--Tools-->
         <ehcache.version>3.8.1</ehcache.version>
-
-        <!--webjars-->
-        <webjars-bootstrap.version>4.4.0</webjars-bootstrap.version>
-        <webjars-jquery.version>3.4.1</webjars-jquery.version>
-        <webjars-datetimepicker.version>2.5.20</webjars-datetimepicker.version>
-        <webjars-noty.version>3.1.4</webjars-noty.version>
-        <webjars-datatables.version>1.10.20</webjars-datatables.version>
     </properties>
 
     <build>
@@ -84,8 +76,8 @@
                         </systemProperties>
                         <dependencies>
                             <dependency>
-                                <groupId>org.postgresql</groupId>
-                                <artifactId>postgresql</artifactId>
+                                <groupId>org.hsqldb</groupId>
+                                <artifactId>hsqldb</artifactId>
                             </dependency>
                         </dependencies>
                     </container>
@@ -100,8 +92,8 @@
                     </configuration>
                     <deployables>
                         <deployable>
-                            <groupId>ru.javawebinar</groupId>
-                            <artifactId>topjava</artifactId>
+                            <groupId>com.javawebinar</groupId>
+                            <artifactId>restaurant</artifactId>
                             <type>war</type>
                             <properties>
                                 <context>${project.build.finalName}</context>
@@ -222,63 +214,8 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-        </dependency>
-
-        <!-- Webjars (static dependencies distributed as JAR files) -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>${webjars-jquery.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>${webjars-bootstrap.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.webjars</groupId>
-                    <artifactId>jquery</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>datatables</artifactId>
-            <version>${webjars-datatables.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.webjars</groupId>
-                    <artifactId>jquery</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>datetimepicker</artifactId>
-            <version>${webjars-datetimepicker.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.webjars.bower</groupId>
-                    <artifactId>jquery</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.webjars.bower</groupId>
-                    <artifactId>php-date-formatter</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>noty</artifactId>
-            <version>${webjars-noty.version}</version>
         </dependency>
 
         <!--JSON-->

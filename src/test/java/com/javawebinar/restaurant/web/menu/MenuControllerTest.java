@@ -19,6 +19,7 @@ import static com.javawebinar.restaurant.RestaurantTestData.*;
 import static com.javawebinar.restaurant.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class MenuControllerTest extends AbstractControllerTest {
@@ -75,6 +76,13 @@ class MenuControllerTest extends AbstractControllerTest {
                 .jsonBody(updateMenu)
                 .auth(USER3))
                 .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void getMenusWithRestaurantAndCourses() throws Exception {
+        perform(doGet("/todayRestaurants").basicAuth(ADMIN))
+                .andExpect(status().isOk())
+                .andExpect(content().string("[{\"id\":100005,\"name\":\"Domino`s pizza\",\"menu\":{\"id\":100008,\"name\":\"Lunch\",\"dateTime\":\"2020-01-21\",\"restaurant\":{\"id\":100005,\"name\":\"Domino`s pizza\"},\"courses\":[{\"id\":100012,\"name\":\"Pizza Margarita\",\"price\":120},{\"id\":100011,\"name\":\"Pizza Pepperoni\",\"price\":100},{\"id\":100013,\"name\":\"Salad\",\"price\":40}]}},{\"id\":100006,\"name\":\"McDonald`s\",\"menu\":{\"id\":100009,\"name\":\"Business lunch\",\"dateTime\":\"2020-01-21\",\"restaurant\":{\"id\":100006,\"name\":\"McDonald`s\"},\"courses\":[{\"id\":100015,\"name\":\"Big Mac\",\"price\":60},{\"id\":100014,\"name\":\"Сheeseburger\",\"price\":50}]}},{\"id\":100007,\"name\":\"KFC\",\"menu\":{\"id\":100010,\"name\":\"Afternoon Snack\",\"dateTime\":\"2020-01-21\",\"restaurant\":{\"id\":100007,\"name\":\"KFC\"},\"courses\":[{\"id\":100016,\"name\":\"Hot-Dog\",\"price\":40},{\"id\":100017,\"name\":\"Longer Cheese\",\"price\":50}]}}]"));
     }
 
     @Test

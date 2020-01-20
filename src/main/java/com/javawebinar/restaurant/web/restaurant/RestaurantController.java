@@ -2,13 +2,16 @@ package com.javawebinar.restaurant.web.restaurant;
 
 import com.javawebinar.restaurant.model.Restaurant;
 import com.javawebinar.restaurant.service.RestaurantService;
+import com.javawebinar.restaurant.to.RestaurantTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)

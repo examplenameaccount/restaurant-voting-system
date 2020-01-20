@@ -1,14 +1,15 @@
 package com.javawebinar.restaurant.service;
 
 import com.javawebinar.restaurant.model.Menu;
-import com.javawebinar.restaurant.repository.datajpa.CrudMenuRepository;
-import com.javawebinar.restaurant.repository.datajpa.CrudRestaurantRepository;
+import com.javawebinar.restaurant.repository.CrudMenuRepository;
+import com.javawebinar.restaurant.repository.CrudRestaurantRepository;
 import com.javawebinar.restaurant.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -51,5 +52,9 @@ public class MenuService {
     public Menu getMenu(int menuId) {
         return menuRepository.findById(menuId)
                 .orElseThrow(() -> new NotFoundException("Menu with id " + menuId + " not found"));
+    }
+
+    public List<Menu> getAllWithRestaurantAndCourse(LocalDate date) {
+        return menuRepository.findAllByDateTime(date);
     }
 }

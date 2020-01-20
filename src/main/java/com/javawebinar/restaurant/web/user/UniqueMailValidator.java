@@ -3,7 +3,7 @@ package com.javawebinar.restaurant.web.user;
 
 import com.javawebinar.restaurant.HasEmail;
 import com.javawebinar.restaurant.model.User;
-import com.javawebinar.restaurant.repository.datajpa.CrudUserRepository;
+import com.javawebinar.restaurant.repository.CrudUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

@@ -2,7 +2,7 @@ package com.javawebinar.restaurant.service;
 
 import com.javawebinar.restaurant.AuthorizedUser;
 import com.javawebinar.restaurant.model.User;
-import com.javawebinar.restaurant.repository.datajpa.CrudUserRepository;
+import com.javawebinar.restaurant.repository.CrudUserRepository;
 import com.javawebinar.restaurant.to.UserTo;
 import com.javawebinar.restaurant.util.UserUtil;
 import com.javawebinar.restaurant.util.exception.NotFoundException;
