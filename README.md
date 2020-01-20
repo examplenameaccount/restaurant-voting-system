@@ -79,10 +79,10 @@ The application functionality is based on REST principles and realizes REST API 
 User handling:
 
 #### Get all Users
-    curl -s http://localhost:8080/topjava/rest/admin/users --user admin@gmail.com:admin
+    curl -s http://localhost:8080/rest/admin/users --user admin@gmail.com:admin
 
 #### get Users 100001
-    curl -s http://localhost:8080/topjava/rest/admin/users/100001 --user admin@gmail.com:admin
+    curl -s http://localhost:8080/rest/admin/users/100001 --user admin@gmail.com:admin
 
 #### Validate with Error
-    curl -s -X POST -d '{}' -H 'Content-Type: application/json' http://localhost:8080/topjava/rest/admin/users --user admin@gmail.com:admin
+    curl -s -X POST -d '{}' -H 'Content-Type: application/json' http://localhost:8080/rest/admin/users --user admin@gmail.com:admin
