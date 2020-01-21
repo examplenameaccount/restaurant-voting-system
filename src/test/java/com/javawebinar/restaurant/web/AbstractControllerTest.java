@@ -137,7 +137,6 @@ abstract public class AbstractControllerTest {
         }
 
         public <T> RequestWrapper jsonBody(T body) {
-            System.out.println("body " + body);
             builder.contentType(MediaType.APPLICATION_JSON).content(JsonUtil.writeValue(body));
             return this;
         }

@@ -26,7 +26,7 @@ public class VoteService {
     @Autowired
     CrudUserRepository crudUserRepository;
 
-    private static final LocalDate TODAY_DATE = LocalDate.now();
+    private LocalDate TODAY_DATE = LocalDate.now();
 
     private boolean notExistByRestaurantId(int restaurantId) {
         return !crudRestaurantRepository.existsById(restaurantId);
@@ -53,7 +53,7 @@ public class VoteService {
     @Transactional
     public VoteTo save(int userId, int restaurantId) {
         if (notExistByRestaurantId(restaurantId)) {
-            throw new NotFoundException("Restaurant with id " + restaurantId + "not found");
+            throw new NotFoundException("Restaurant with id " + restaurantId + " not found");
         }
         Vote todayVote = crudVoteRepository.findByUserIdAndLocalDate(userId, TODAY_DATE).orElse(null);
         if (todayVote != null) {
@@ -66,8 +66,7 @@ public class VoteService {
     }
 
     public List<Vote> history(int userId) {
-        List<Vote> votes = crudVoteRepository.getByUserId(userId);
-        return votes;
+        return crudVoteRepository.getByUserId(userId);
     }
 
     public List<VoteStatistic> getTodayVotes(LocalDate now) {
